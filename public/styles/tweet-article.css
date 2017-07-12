@@ -1,0 +1,63 @@
+.feed article{
+  border: 1px solid darkgray;
+  border-radius: 10px;
+  margin: 0 2em 0 2em;
+}
+
+.feed .tweet:hover{
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: .1em .1em .05em grey; 
+}
+
+.feed article p{
+  margin: 1em .5em 1em .5em;
+}
+
+
+/* Header */
+
+.feed article header{
+  background: #eee;
+  border-radius: inherit;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.feed article header .avatar{
+  width: 3em;
+  height: 3em;
+  margin: .5em;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 7px
+}
+
+.feed article header .username{
+  margin: auto auto auto 0.15em;
+  display: inline-block; 
+  vertical-align: middle;
+  font-size: 1.5em;
+}
+
+.feed article header .handle{
+  font-size: .7em;
+  float: right;
+  margin: .5em .5em 0 0;
+}
+
+/* Footer */
+
+.feed article footer{
+  border-top: 1px solid #eee;
+}
+
+.feed article footer span{
+  line-height: 200%;
+  font-size: .7em;
+  margin: 0 0 0 .5em;
+}
+
+
