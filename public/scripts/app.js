@@ -5,8 +5,8 @@
  */
 
 $(document).ready(() => {
-// FUNCTIONS
-  
+  // HELPER FUNCTIONS
+
   function escape(str) {
     const div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
@@ -26,7 +26,7 @@ $(document).ready(() => {
     return true;
   }
 
-  // FUNCTIONS: CREATION OF TWEETS
+  // FUNCTIONS: CREATION/RENDER OF TWEETS
 
   function createTweetElement(tweetData) {
     const html = `
@@ -63,7 +63,7 @@ $(document).ready(() => {
     });
   }
 
-// SUBMIT OF TWEETS via AJAX
+  // SUBMIT OF NEW TWEETS via AJAX
 
   function submitTweet(e) {
     e.preventDefault();
@@ -83,7 +83,7 @@ $(document).ready(() => {
   }
 
 
-// CALLING FUNCTION & SCRIPTS
+  // CALLING FUNCTION & SCRIPTS
 
   loadTweets();
 
@@ -95,4 +95,3 @@ $(document).ready(() => {
     $('#tweetInput').focus();
   });
 });
-
