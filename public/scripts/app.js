@@ -34,9 +34,9 @@ $(document).ready(() => {
     let allTweets = '';
     for (const tweet in tweetData) {
       const renderedTweet = createTweetElement(tweetData[tweet]);
-      allTweets += renderedTweet;
+      allTweets = renderedTweet + allTweets;
     }
-    $('.feed').append(allTweets);
+    $('.feed').empty().append(allTweets);
   }
 
   function loadTweets() {
@@ -61,7 +61,9 @@ $(document).ready(() => {
         url: '/tweets',
         data: tweetData,
         success(data) {
-          alert(`Submitted Tweet: ${this.data}`);
+          $('#tweetInput').val('');
+          $('#charCounter').text(140);
+          loadTweets();
         },
       });
     }
@@ -70,7 +72,6 @@ $(document).ready(() => {
   function textInputVerified() {
     let textInput = $('#tweetInput').val();
     let textInputLength = textInput.length;
-    console.log(textInputLength);
     if (textInputLength === 0) {
       alert("The tweet doesn't contain anything! Add something to your tweet.");
       return false;
@@ -84,5 +85,12 @@ $(document).ready(() => {
   loadTweets();
 
   $('#submit-tweet').on('submit', submitTweet);
+
+  $('#compose').on('click',function(e){
+      e.stopPropagation();
+      $('.new-tweet').slideToggle();
+      $('#tweetInput').focus();
+  });
+
 });
 

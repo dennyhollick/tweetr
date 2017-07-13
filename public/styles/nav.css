@@ -22,3 +22,13 @@
   line-height: 250%;
   padding-left: 1em;
 }
+
+button#compose {
+    float: right;
+    margin-top: 3ex;
+}
+
+button#compose:hover {
+    border: 2px solid black;
+    box-shadow: 0 .1em .5em 0;
+}
