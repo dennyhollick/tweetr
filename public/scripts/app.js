@@ -4,15 +4,14 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-//TODO: Test Cross Site Scripting
+// TODO: Test Cross Site Scripting
 
 $(document).ready(() => {
-
   function escape(str) {
-  var div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
-}
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
 
 
   function createTweetElement(tweetData) {
@@ -41,22 +40,31 @@ $(document).ready(() => {
   }
 
   function loadTweets() {
-    let renderedTweets = '';
+    const renderedTweets = '';
     $.ajax({
       url: '/tweets',
       method: 'GET',
-      success: function (tweetData) {
+      success(tweetData) {
         renderTweets(tweetData);
-      }
+      },
     });
-  };
+  }
 
-loadTweets();
+  loadTweets();
 
+// Submits a tweet via AJAX
 
+  $('#submit-tweet').submit(function (e) {
+    $.ajax({
+      type: 'POST',
+      url: '/tweets',
+      data: $(this).serialize(),
+      success(data) {
+        alert(`Submitted Tweet: ${this.data}`);
+      },
+    });
+
+    e.preventDefault();
+  });
 });
-
-
-
-
 

@@ -53,22 +53,7 @@ $( "input" ).click(function( event ) {
 
 
 
-<script>
-$("#submit-tweet").submit(function(e) {
 
-    $.ajax({
-           type: "POST",
-           url: "/tweets",
-           data: $(this).serialize(), // serializes the form's elements.
-           success: function(data)
-           {
-               alert('Submitted Tweet: ' + this.data); // show response from the php script.
-           }
-         });
-
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-});
-</script>
 
 </body>
 
