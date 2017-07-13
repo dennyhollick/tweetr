@@ -50,21 +50,39 @@ $(document).ready(() => {
     });
   }
 
-  loadTweets();
-
 // Submits a tweet via AJAX
 
-  $('#submit-tweet').submit(function (e) {
-    $.ajax({
-      type: 'POST',
-      url: '/tweets',
-      data: $(this).serialize(),
-      success(data) {
-        alert(`Submitted Tweet: ${this.data}`);
-      },
-    });
-
+  function submitTweet(e) {
     e.preventDefault();
-  });
+    const tweetData = $(this).serialize();
+    if (textInputVerified()) {
+      $.ajax({
+        type: 'POST',
+        url: '/tweets',
+        data: tweetData,
+        success(data) {
+          alert(`Submitted Tweet: ${this.data}`);
+        },
+      });
+    }
+  }
+
+  function textInputVerified() {
+    let textInput = $('#tweetInput').val();
+    let textInputLength = textInput.length;
+    console.log(textInputLength);
+    if (textInputLength === 0) {
+      alert("The tweet doesn't contain anything! Add something to your tweet.");
+      return false;
+    } else if (textInputLength > 140) {
+      alert('You have too many characters. Try shortening it.');
+      return false;
+    }
+    return true;
+  }
+
+  loadTweets();
+
+  $('#submit-tweet').on('submit', submitTweet);
 });
 
