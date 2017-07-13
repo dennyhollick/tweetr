@@ -36,7 +36,7 @@
   <main class="container">
     <section class="new-tweet">
       <h2>Compose Tweet</h2>
-      <form action="/tweets" method="POST">
+      <form action="/tweets" method="POST" id="submit-tweet">
         <textarea id="tweetInput" name="text" value="tweetText" placeholder="What are you humming about?"></textarea>
         <input type="submit" value="Tweet">
         <span class="counter">140</span>
@@ -44,6 +44,32 @@
     </section>
     <section class="feed"></section>
   </main>
+
+<!--<script>
+$( "input" ).click(function( event ) {
+  event.preventDefault();
+});
+</script>-->
+
+
+
+<script>
+$("#submit-tweet").submit(function(e) {
+
+    $.ajax({
+           type: "POST",
+           url: "/tweets",
+           data: $(this).serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+               alert('Submitted Tweet: ' + this.data); // show response from the php script.
+           }
+         });
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+</script>
+
 </body>
 
 </html>
