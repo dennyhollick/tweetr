@@ -4,15 +4,29 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// TODO: Test Cross Site Scripting
-
 $(document).ready(() => {
+// FUNCTIONS
+  
   function escape(str) {
     const div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   }
 
+  function textInputVerified() {
+    const textInput = $('#tweetInput').val();
+    const textInputLength = textInput.length;
+    if (textInputLength === 0) {
+      alert("The tweet doesn't contain anything! Add something to your tweet.");
+      return false;
+    } else if (textInputLength > 140) {
+      alert('You have too many characters. Try shortening it.');
+      return false;
+    }
+    return true;
+  }
+
+  // FUNCTIONS: CREATION OF TWEETS
 
   function createTweetElement(tweetData) {
     const html = `
@@ -40,7 +54,6 @@ $(document).ready(() => {
   }
 
   function loadTweets() {
-    const renderedTweets = '';
     $.ajax({
       url: '/tweets',
       method: 'GET',
@@ -50,7 +63,7 @@ $(document).ready(() => {
     });
   }
 
-// Submits a tweet via AJAX
+// SUBMIT OF TWEETS via AJAX
 
   function submitTweet(e) {
     e.preventDefault();
@@ -60,7 +73,7 @@ $(document).ready(() => {
         type: 'POST',
         url: '/tweets',
         data: tweetData,
-        success(data) {
+        success() {
           $('#tweetInput').val('');
           $('#charCounter').text(140);
           loadTweets();
@@ -69,28 +82,17 @@ $(document).ready(() => {
     }
   }
 
-  function textInputVerified() {
-    let textInput = $('#tweetInput').val();
-    let textInputLength = textInput.length;
-    if (textInputLength === 0) {
-      alert("The tweet doesn't contain anything! Add something to your tweet.");
-      return false;
-    } else if (textInputLength > 140) {
-      alert('You have too many characters. Try shortening it.');
-      return false;
-    }
-    return true;
-  }
+
+// CALLING FUNCTION & SCRIPTS
 
   loadTweets();
 
   $('#submit-tweet').on('submit', submitTweet);
 
-  $('#compose').on('click',function(e){
-      e.stopPropagation();
-      $('.new-tweet').slideToggle();
-      $('#tweetInput').focus();
+  $('#compose').on('click', (e) => {
+    e.stopPropagation();
+    $('.new-tweet').slideToggle();
+    $('#tweetInput').focus();
   });
-
 });
 
