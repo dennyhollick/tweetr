@@ -3,8 +3,8 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  * TODO:
- * [ ] Add: "Flag", "Re-tweet" and "Like" icons upon hovering over the tweet, on the right
- * [ ] Update: Compose button
+ * [X] Add: "Flag", "Re-tweet" and "Like" icons upon hovering over the tweet, on the right
+ * [X] Update: Compose button
  * [ ] Check: Final ESLint and Self Code Review
  *     [ ] Check: Remove Comments and Review var names
  * [ ] Check: Code Review
@@ -53,7 +53,7 @@ $(document).ready(() => {
         </span>
         <img class="tweetButtons" src="/images/flag.png">
         <img class="tweetButtons" src="/images/arrows.png">
-        <img class="tweetButtons" src="/images/like.png">
+        <img class="tweetButtons tweetLike" src="/images/like.png" data-tweetId="${tweetData._id}">
       </footer>
     </article>`;
     return html;
@@ -98,8 +98,45 @@ $(document).ready(() => {
     }
   }
 
-  $('#submit-tweet').on('submit', submitTweet);
+   $('#submit-tweet').on('submit', submitTweet);
 
+
+  //SUBMIT LIKING OF NEW TWEET
+  //   function submitLike(e) {
+  //   e.preventDefault();
+  //   const tweetData = $(this).serialize();
+  //   if (textInputVerified()) {
+  //     $.ajax({
+  //       method: 'POST',
+  //       url: '/tweets',
+  //       data: tweetData,
+  //       success(data) {
+  //         $('#tweetInput').val('');
+  //         $('#charCounter').text(140);
+  //         loadTweets();
+  //       },
+  //     });
+  //   }
+  // }
+
+  function submitLike(e) {
+    const tweetLikeBtn = $(e.target);
+    console.log(tweetLikeBtn);
+    const tweetId = tweetLikeBtn.data("tweetid");
+    console.log('tweetid', tweetId);
+      $.ajax({
+      method: 'POST',
+      url: '/likes',
+      data: tweetId,
+      success(data) {
+        $('#tweetInput').val('');
+        $('#charCounter').text(140);
+        loadTweets();
+      },
+    });
+  }
+
+   $('.feed').on('click', '.tweetLike', submitLike);
 
   // CALLING FUNCTION & SCRIPTS
 
