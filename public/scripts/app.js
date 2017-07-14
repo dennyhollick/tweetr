@@ -5,7 +5,6 @@
  */
 
 $(document).ready(() => {
-  
   // HELPER FUNCTIONS
 
   function escape(str) {
@@ -18,10 +17,10 @@ $(document).ready(() => {
     const textInput = $('#tweetInput').val();
     const textInputLength = textInput.length;
     if (textInputLength === 0) {
-      swal("Oops...", "You need to enter some text to submit!", "error");
+      swal('Oops...', 'You need to enter some text to submit!', 'error');
       return false;
     } else if (textInputLength > 140) {
-      swal("Oops...", "You have too many characters, try shortening it!", "error");
+      swal('Oops...', 'You have too many characters, try shortening it!', 'error');
       return false;
     }
     return true;
@@ -39,11 +38,14 @@ $(document).ready(() => {
       </header>
       <p>${escape(tweetData.content.text)}</p>
       <footer>
-        <span>${tweetData.created_at}</span>
+        <span>
+              ${moment(tweetData.created_at).fromNow()}    
+        </span>
       </footer>
     </article>`;
     return html;
   }
+//Tweet data varible name
 
   function renderTweets(tweetData) {
     let allTweets = '';
@@ -95,5 +97,4 @@ $(document).ready(() => {
     $('.new-tweet').slideToggle();
     $('#tweetInput').focus();
   });
-
 });
