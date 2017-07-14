@@ -18,10 +18,10 @@ $(document).ready(() => {
     const textInput = $('#tweetInput').val();
     const textInputLength = textInput.length;
     if (textInputLength === 0) {
-      alert("The tweet doesn't contain anything! Add something to your tweet.");
+      swal("Oops...", "You need to enter some text to submit!", "error");
       return false;
     } else if (textInputLength > 140) {
-      alert('You have too many characters. Try shortening it.');
+      swal("Oops...", "You have too many characters, try shortening it!", "error");
       return false;
     }
     return true;
@@ -95,4 +95,5 @@ $(document).ready(() => {
     $('.new-tweet').slideToggle();
     $('#tweetInput').focus();
   });
+
 });
