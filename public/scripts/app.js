@@ -5,6 +5,7 @@
  */
 
 $(document).ready(() => {
+  
   // HELPER FUNCTIONS
 
   function escape(str) {
@@ -70,10 +71,10 @@ $(document).ready(() => {
     const tweetData = $(this).serialize();
     if (textInputVerified()) {
       $.ajax({
-        type: 'POST',
+        method: 'POST',
         url: '/tweets',
         data: tweetData,
-        success() {
+        success(data) {
           $('#tweetInput').val('');
           $('#charCounter').text(140);
           loadTweets();
@@ -82,12 +83,12 @@ $(document).ready(() => {
     }
   }
 
+  $('#submit-tweet').on('submit', submitTweet);
+
 
   // CALLING FUNCTION & SCRIPTS
 
   loadTweets();
-
-  $('#submit-tweet').on('submit', submitTweet);
 
   $('#compose').on('click', (e) => {
     e.stopPropagation();
