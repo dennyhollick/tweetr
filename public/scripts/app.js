@@ -2,7 +2,17 @@
  * Client-side JS logic goes here
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
+ * TODO:
+ * [ ] Add: "Flag", "Re-tweet" and "Like" icons upon hovering over the tweet, on the right
+ * [ ] Update: Compose button
+ * [ ] Check: Final ESLint and Self Code Review
+ *     [ ] Check: Remove Comments and Review var names
+ * [ ] Check: Code Review
+ * [ ] Check: Run on mentor computer
+ * [ ] Stretch: Create 'like' functionality
+ * [ ] Stretch: Create user login
  */
+ 
 
 $(document).ready(() => {
   // HELPER FUNCTIONS
