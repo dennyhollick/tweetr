@@ -51,6 +51,9 @@ $(document).ready(() => {
         <span>
               ${moment(tweetData.created_at).fromNow()}    
         </span>
+        <img class="tweetButtons" src="/images/flag.png">
+        <img class="tweetButtons" src="/images/arrows.png">
+        <img class="tweetButtons" src="/images/like.png">
       </footer>
     </article>`;
     return html;

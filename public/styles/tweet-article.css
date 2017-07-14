@@ -60,4 +60,21 @@
   margin: 0 0 0 .5em;
 }
 
+.feed .tweetButtons{
+  height: 1em;
+  width: 1em;
+  float: right;
+  margin: .2em .3em 0 .3em;
+  visibility: hidden;
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+  transition: transform .8s ease-in-out;
+}
 
+.tweet:hover .tweetButtons{
+  visibility: visible;
+}
+
+.tweetButtons:hover {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
