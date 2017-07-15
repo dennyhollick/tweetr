@@ -2,15 +2,6 @@
  * Client-side JS logic goes here
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- * TODO:
- * [X] Add: "Flag", "Re-tweet" and "Like" icons upon hovering over the tweet, on the right
- * [X] Update: Compose button
- * [ ] Check: Final ESLint and Self Code Review
- *     [ ] Check: Remove Comments and Review var names
- * [ ] Check: Code Review
- * [ ] Check: Run on mentor computer
- * [ ] Stretch: Create 'like' functionality
- * [ ] Stretch: Create user login
  */
  
 
@@ -59,7 +50,7 @@ $(document).ready(() => {
     </article>`;
     return html;
   }
-//Tweet data varible name
+// Tweet data varible name
 
   function renderTweets(tweetData, executeAfter) {
     let allTweets = '';
@@ -78,7 +69,7 @@ $(document).ready(() => {
       url: '/tweets',
       method: 'GET',
       success(tweetData) {
-        renderTweets(tweetData,executeAfter);
+        renderTweets(tweetData, executeAfter);
       },
     });
   }
@@ -102,34 +93,31 @@ $(document).ready(() => {
     }
   }
 
-   $('#submit-tweet').on('submit', submitTweet);
+  $('#submit-tweet').on('submit', submitTweet);
 
 
-  //SUBMIT LIKING OF NEW TWEET
+  // SUBMIT LIKING OF NEW TWEET
 
   function submitLike(e) {
     const tweetLikeBtn = $(e.target);
-    const tweetId = tweetLikeBtn.data("tweetid");
-    const likeStatus = tweetLikeBtn.data("liked");
-    console.log(likeStatus);
+    const tweetId = tweetLikeBtn.data('tweetid');
+    const likeStatus = tweetLikeBtn.data('liked');
 
-    if (!likeStatus){
-      console.log('tweetid', tweetId);
+    if (!likeStatus) {
       $.ajax({
-      method: 'POST',
-      url: '/tweets/likes',
-      data: { 'tweetId': tweetId },
-      success(data) {
-        loadTweets(function() {
-        $(`.tweetLike[data-tweetId="${tweetId}"]`).data("liked", true );
-        console.log(likeStatus);
-        });
-      }
-    });
+        method: 'POST',
+        url: '/tweets/likes',
+        data: { tweetId },
+        success(data) {
+          loadTweets(() => {
+            $(`.tweetLike[data-tweetId="${tweetId}"]`).data('liked', true);
+          });
+        },
+      });
     }
   }
 
-   $('.feed').on('click', '.tweetLike', submitLike);
+  $('.feed').on('click', '.tweetLike', submitLike);
 
   // CALLING FUNCTION & SCRIPTS
 
