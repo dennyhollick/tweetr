@@ -1,8 +1,14 @@
-# Tweeter Project
+# Tweeter Project by Denny @ LightHouse Labs
 
 Tweeter is a simple, single-page Twitter clone.
 
-This repository is the starter code for the project: Students will fork and clone this repository, then build upon it to practice their HTML, CSS, JS, jQuery and AJAX front-end skills, and their Node, Express and MongoDB back-end skills.
+This is a full-stack web application built on Node, Express and MongoDB. 
+
+It allows users to compose tweets and have them saved to a database.
+
+## Final Project
+
+!["Tweeter"](https://github.com/dennyhollick/tweetr/blob/master/docs/TweeterApp.png)
 
 ## Getting Started
 
@@ -15,3 +21,17 @@ This repository is the starter code for the project: Students will fork and clon
 
 - Express
 - Node 5.10.x or above
+- MongoDB
+- Body-parser
+- Chance
+- MD5
+
+## Features
+
+- Allows users to compose a new tweet and save it
+- Shows and hides compose tweet area
+- Allows users to like a tweet only 1x per session.
+
+## Known Issues
+
+- Users can like a tweet more than once if they refresh their page or submit a new tweet. This will be fixed when session cookies are set up.
