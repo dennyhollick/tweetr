@@ -53,28 +53,32 @@ $(document).ready(() => {
         </span>
         <img class="tweetButtons" src="/images/flag.png">
         <img class="tweetButtons" src="/images/arrows.png">
-        <img class="tweetButtons tweetLike" src="/images/like.png" data-tweetId="${tweetData._id}">
+        <img class="tweetButtons tweetLike" src="/images/like.png" data-tweetId="${tweetData._id}" data-liked="false">
+        <span>likes: ${tweetData.likes}</span>
       </footer>
     </article>`;
     return html;
   }
 //Tweet data varible name
 
-  function renderTweets(tweetData) {
+  function renderTweets(tweetData, executeAfter) {
     let allTweets = '';
     for (const tweet in tweetData) {
       const renderedTweet = createTweetElement(tweetData[tweet]);
       allTweets = renderedTweet + allTweets;
     }
     $('.feed').empty().append(allTweets);
+    if (executeAfter) {
+      executeAfter();
+    }
   }
 
-  function loadTweets() {
+  function loadTweets(executeAfter) {
     $.ajax({
       url: '/tweets',
       method: 'GET',
       success(tweetData) {
-        renderTweets(tweetData);
+        renderTweets(tweetData,executeAfter);
       },
     });
   }
@@ -102,38 +106,27 @@ $(document).ready(() => {
 
 
   //SUBMIT LIKING OF NEW TWEET
-  //   function submitLike(e) {
-  //   e.preventDefault();
-  //   const tweetData = $(this).serialize();
-  //   if (textInputVerified()) {
-  //     $.ajax({
-  //       method: 'POST',
-  //       url: '/tweets',
-  //       data: tweetData,
-  //       success(data) {
-  //         $('#tweetInput').val('');
-  //         $('#charCounter').text(140);
-  //         loadTweets();
-  //       },
-  //     });
-  //   }
-  // }
 
   function submitLike(e) {
     const tweetLikeBtn = $(e.target);
-    console.log(tweetLikeBtn);
     const tweetId = tweetLikeBtn.data("tweetid");
-    console.log('tweetid', tweetId);
+    const likeStatus = tweetLikeBtn.data("liked");
+    console.log(likeStatus);
+
+    if (!likeStatus){
+      console.log('tweetid', tweetId);
       $.ajax({
       method: 'POST',
-      url: '/likes',
-      data: tweetId,
+      url: '/tweets/likes',
+      data: { 'tweetId': tweetId },
       success(data) {
-        $('#tweetInput').val('');
-        $('#charCounter').text(140);
-        loadTweets();
-      },
+        loadTweets(function() {
+        $(`.tweetLike[data-tweetId="${tweetId}"]`).data("liked", true );
+        console.log(likeStatus);
+        });
+      }
     });
+    }
   }
 
    $('.feed').on('click', '.tweetLike', submitLike);

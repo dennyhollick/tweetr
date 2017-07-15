@@ -1,3 +1,6 @@
+
+
+const ObjectId = require('mongodb').ObjectId;
 // Defines helper functions for saving and getting tweets, using the database `db`
 module.exports = function makeDataHelpers(db) {
   return {
@@ -11,5 +14,10 @@ module.exports = function makeDataHelpers(db) {
     getTweets(callback) {
       db.collection('tweets').find().toArray(callback);
     },
+
+    toggleLike(tweetId, callback) {
+      db.collection('tweets').update( { _id : ObjectId(tweetId) }, { $inc: { likes: 1 } }, callback);
+      console.log('ObjectId("' + tweetId + '")')
+    }
   };
 };
